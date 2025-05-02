@@ -1,0 +1,28 @@
+<nav class="top-0 fixed z-50 w-full bg-white shadow px-2 py-3">
+    <div class="flex justify-between flex-nowrap">
+        <div class="flex items-center space-x-4">
+            <app-index-dropdown class="block"></app-index-dropdown>
+            <a [routerLink]="['/']"
+               class="text-blueGray-700 text-sm font-bold leading-relaxed whitespace-nowrap uppercase">
+                Loja Virtual
+            </a>
+        </div>
+
+        <div class="flex items-center space-x-3">
+            <a [routerLink]="['/auth/login']"
+               class="text-sm py-2 px-4 font-normal text-blueGray-700 transition">
+                Entrar
+            </a>
+            <a [routerLink]="['/auth/register']"
+               class="text-sm py-2 px-4 font-normal text-blueGray-700 transition">
+                Registrar
+            </a>
+            <button
+                class="bg-red-600 text-white active:bg-red-700 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg transition duration-150"
+                type="button" style="width: 130px;">
+                Carrinho
+                <i class="fas fa-shopping-cart ml-2"></i>
+            </button>
+        </div>
+    </div>
+</nav>

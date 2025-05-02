@@ -1,0 +1,24 @@
+<div class="flex flex-wrap justify-center gap-6 px-4 py-8">
+    <div *ngFor="let product of displayedProducts"
+        class="w-[18%] min-w-[180px] max-w-[220px] bg-white rounded-lg shadow p-4 flex flex-col justify-between text-center overflow-hidden"
+        style="background-color: white; border: 1px solid #e1e1e1">
+
+        <img [src]="product.image" [alt]="product.title"
+            style="width: 100%; height: 120px; object-fit: cover; border-radius: 6px; margin-bottom: 12px; border: 1px solid #ddd;" />
+
+        <h3 class="text-md font-semibold mb-1 text-gray-800">{{ product.title }}</h3>
+        <p class="text-sm text-gray-600 mb-2 truncate">{{ product.description }}</p>
+        <p class="text-gray-700 font-medium mb-4">R$ {{ product.price | number: '1.2-2' }}</p>
+
+        <div class="flex justify-between gap-2 mt-auto">
+            <button
+                class="bg-white border border-blue-600 text-blue-600 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:bg-blue-600 hover:text-white transition duration-150">
+                Detalhes
+            </button>
+            <button
+                class="bg-red-600 text-white active:bg-red-700 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg transition duration-150">
+                Carrinho
+            </button>
+        </div>
+    </div>
+</div>
