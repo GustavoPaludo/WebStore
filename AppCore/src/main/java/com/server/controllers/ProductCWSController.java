@@ -1,6 +1,5 @@
 package com.server.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.server.core.product.ProductService;
-import com.server.models.ProductInfoModel;
+import com.server.core.product.vo.ProductInfoModel;
 
 @RestController
 @RequestMapping(value = "/product")
@@ -22,8 +21,9 @@ public class ProductCWSController {
 	private ProductService productService;
 
 	@RequestMapping(value = "/list-by-paging", method = RequestMethod.GET)
-	public ResponseEntity<List<ProductInfoModel>> getSeries(@RequestParam("page") int page,
-			@RequestParam("size") int size) {
+	public ResponseEntity<List<ProductInfoModel>> getSeries(
+			@RequestParam(required = true, value = "page") int page,
+			@RequestParam(required = true, value = "size") int size) {
 
 		List<ProductInfoModel> productModelList = this.productService.listProucts(page, size);
 

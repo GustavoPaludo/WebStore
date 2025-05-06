@@ -3,36 +3,33 @@ package com.server.core.product;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
-import com.server.models.ProductInfoModel;
+import com.server.core.product.dao.Product;
+import com.server.core.product.dao.ProductDAO;
+import com.server.core.product.vo.ProductInfoModel;
 
 @Service
 public class ProductServiceImpl implements ProductService {
 
+	private ProductDAO productDAO;
+
 	@Override
 	public List<ProductInfoModel> listProucts(int page, int size) {
-		List<ProductInfoModel> productModelList = new ArrayList<ProductInfoModel>();
+		List<Product> productList = this.productDAO.listByPaging(page, size); 
 
-		for (int i = 0; i < 20; i++) {
-			ProductInfoModel productModel = new ProductInfoModel(
-					i,
-					"Produto " + i,
-					"Descrição do produto " + i,
-					i * 10,
-					1 * 5d
-			);
-
-			productModelList.add(productModel);
+		List<ProductInfoModel> productModelList = new ArrayList<>();
+		if(!CollectionUtils.isEmpty(productList)) {
+			productModelList = new ProductInfoModel().fromList(productList);
 		}
 
-		int start = (page - 1) * size;
-		int end = Math.min(start + size, productModelList.size());
+		return productModelList;
+	}
 
-		if (start >= productModelList.size()) {
-			return new ArrayList<>();
-		}
-
-		return productModelList.subList(start, end);
+	@Autowired
+	public void setProductDAO(ProductDAO productDAO) {
+		this.productDAO = productDAO;
 	}
 }
