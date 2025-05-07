@@ -1,4 +1,4 @@
-package com.server.controllers;
+package com.server.controllers.common;
 
 import java.util.List;
 
@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.server.core.product.ProductService;
-import com.server.core.product.vo.ProductInfoModel;
+import com.server.core.product.model.ProductInfoModel;
 
 @RestController
-@RequestMapping(value = "/product")
+@RequestMapping(value = "/common/product")
 public class ProductCWSController {
 
 	private ProductService productService;
@@ -31,7 +31,7 @@ public class ProductCWSController {
 			return new ResponseEntity<List<ProductInfoModel>>(HttpStatus.NOT_FOUND);
 		}
 
-		return new ResponseEntity<List<ProductInfoModel>>(productModelList.subList(0, size), HttpStatus.OK);
+		return new ResponseEntity<List<ProductInfoModel>>(productModelList, HttpStatus.OK);
 	}
 
 	@Autowired

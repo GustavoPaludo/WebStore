@@ -1,5 +1,6 @@
 package com.server.core.product.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -18,6 +19,8 @@ public class ProductDAO {
 
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void save(Product product) {
+		product.setLaspUpdate(new Date());
+
 		if(product.getId() != null) {
 			this.entityManager.merge(product);
 		} else {

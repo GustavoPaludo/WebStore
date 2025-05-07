@@ -9,7 +9,7 @@ import org.springframework.util.CollectionUtils;
 
 import com.server.core.product.dao.Product;
 import com.server.core.product.dao.ProductDAO;
-import com.server.core.product.vo.ProductInfoModel;
+import com.server.core.product.model.ProductInfoModel;
 
 @Service
 public class ProductServiceImpl implements ProductService {

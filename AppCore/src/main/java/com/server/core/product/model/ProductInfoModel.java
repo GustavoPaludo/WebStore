@@ -1,10 +1,10 @@
-package com.server.core.product.vo;
+package com.server.core.product.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.validation.constraints.NotNull;
+import org.springframework.util.CollectionUtils;
 
 import com.server.core.product.dao.Product;
 
@@ -28,7 +28,11 @@ public class ProductInfoModel implements Serializable {
 		this.price = price;
 	}
 
-	public ProductInfoModel from(@NotNull Product product) {
+	public ProductInfoModel from(Product product) {
+		if(product == null) {
+			return null;
+		}
+
 		this.id = product.getId();
 		this.name = product.getName();
 		this.description = product.getDescription();
@@ -38,8 +42,12 @@ public class ProductInfoModel implements Serializable {
 		return this;
 	}
 
-	public List<ProductInfoModel> fromList(@NotNull List<Product> productList) {
+	public List<ProductInfoModel> fromList(List<Product> productList) {
 		List<ProductInfoModel> productModelList = new ArrayList<>();
+
+		if(CollectionUtils.isEmpty(productList)) {
+			return productModelList;
+		}
 
 		for(Product product : productList) {
 			ProductInfoModel model = new ProductInfoModel();

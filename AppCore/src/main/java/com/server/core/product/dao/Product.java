@@ -1,5 +1,7 @@
 package com.server.core.product.dao;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,6 +35,9 @@ public class Product {
 
 	@Column(name = "PRICE", nullable = false)
 	private Double price;
+
+	@Column(name = "LAST_UPDATE", nullable = false)
+	private Date laspUpdate;
 
 	public Long getId() {
 		return id;
@@ -72,5 +77,13 @@ public class Product {
 
 	public void setPrice(Double price) {
 		this.price = price;
+	}
+
+	public Date getLaspUpdate() {
+		return laspUpdate;
+	}
+
+	public void setLaspUpdate(Date laspUpdate) {
+		this.laspUpdate = laspUpdate;
 	}
 }

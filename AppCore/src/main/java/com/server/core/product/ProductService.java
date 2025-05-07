@@ -2,7 +2,7 @@ package com.server.core.product;
 
 import java.util.List;
 
-import com.server.core.product.vo.ProductInfoModel;
+import com.server.core.product.model.ProductInfoModel;
 
 public interface ProductService {
 
