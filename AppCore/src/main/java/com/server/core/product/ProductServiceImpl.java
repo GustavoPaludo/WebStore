@@ -18,10 +18,10 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<ProductInfoModel> listProucts(int page, int size) {
-		List<Product> productList = this.productDAO.listByPaging(page, size); 
+		List<Product> productList = this.productDAO.listByPaging(page, size);
 
 		List<ProductInfoModel> productModelList = new ArrayList<>();
-		if(!CollectionUtils.isEmpty(productList)) {
+		if (!CollectionUtils.isEmpty(productList)) {
 			productModelList = new ProductInfoModel().fromList(productList);
 		}
 

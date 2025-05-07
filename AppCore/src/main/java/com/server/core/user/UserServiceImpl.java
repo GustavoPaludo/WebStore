@@ -25,18 +25,18 @@ public class UserServiceImpl implements UserService {
 		ProblemList problemList = new ProblemList();
 		User user = this.userDAO.findByEmail(userFormModel.getEmail());
 
-		if(user == null) {
+		if (user == null) {
 			return problemList.add(new Problem("Nenhum usuário cadastrado para o email informado"));
 		}
 
-		if(!PasswordUtils.validatePassword(userFormModel.getPassword(), user.getPassword())) {
+		if (!PasswordUtils.validatePassword(userFormModel.getPassword(), user.getPassword())) {
 			return problemList.add(new Problem("Senha incorreta!"));
 		}
 
 		HttpSession session = httpRequest.getSession(true);
-        session.setAttribute("userName", user.getName());
-        session.setAttribute("userEmail", user.getEmail());
-        session.setMaxInactiveInterval(24 * 60 * 60);
+		session.setAttribute("userName", user.getName());
+		session.setAttribute("userEmail", user.getEmail());
+		session.setMaxInactiveInterval(24 * 60 * 60);
 
 		return problemList;
 	}
@@ -58,11 +58,11 @@ public class UserServiceImpl implements UserService {
 			problemList.add(new Problem("O email informado já está em uso."));
 		}
 
-		if(!problemList.hasAny()) {
+		if (!problemList.hasAny()) {
 			HttpSession session = httpRequest.getSession(true);
-	        session.setAttribute("userName", user.getName());
-	        session.setAttribute("userEmail", user.getEmail());
-	        session.setMaxInactiveInterval(24 * 60 * 60);
+			session.setAttribute("userName", user.getName());
+			session.setAttribute("userEmail", user.getEmail());
+			session.setMaxInactiveInterval(24 * 60 * 60);
 		}
 
 		return problemList;

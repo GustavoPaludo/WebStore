@@ -29,7 +29,7 @@ public class ProductInfoModel implements Serializable {
 	}
 
 	public ProductInfoModel from(Product product) {
-		if(product == null) {
+		if (product == null) {
 			return null;
 		}
 
@@ -45,11 +45,11 @@ public class ProductInfoModel implements Serializable {
 	public List<ProductInfoModel> fromList(List<Product> productList) {
 		List<ProductInfoModel> productModelList = new ArrayList<>();
 
-		if(CollectionUtils.isEmpty(productList)) {
+		if (CollectionUtils.isEmpty(productList)) {
 			return productModelList;
 		}
 
-		for(Product product : productList) {
+		for (Product product : productList) {
 			ProductInfoModel model = new ProductInfoModel();
 
 			model.setId(product.getId());
