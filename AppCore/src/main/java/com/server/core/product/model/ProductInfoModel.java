@@ -17,15 +17,17 @@ public class ProductInfoModel implements Serializable {
 	private String description;
 	private Integer quantity;
 	private Double price;
+	private String imageUrl;
 
 	public ProductInfoModel() {}
 
-	public ProductInfoModel(Long id, String name, String description, Integer quantity, Double price) {
+	public ProductInfoModel(Long id, String name, String description, Integer quantity, Double price, String imageUrl) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.quantity = quantity;
 		this.price = price;
+		this.imageUrl = imageUrl;
 	}
 
 	public ProductInfoModel from(Product product) {
@@ -38,6 +40,7 @@ public class ProductInfoModel implements Serializable {
 		this.description = product.getDescription();
 		this.quantity = product.getQuantity();
 		this.price = product.getPrice();
+		this.imageUrl = product.getImageUrl();
 
 		return this;
 	}
@@ -57,6 +60,7 @@ public class ProductInfoModel implements Serializable {
 			model.setDescription(product.getDescription());
 			model.setQuantity(product.getQuantity());
 			model.setPrice(product.getPrice());
+			model.setImageUrl(product.getImageUrl());
 
 			productModelList.add(this);
 		}
@@ -102,5 +106,13 @@ public class ProductInfoModel implements Serializable {
 
 	public void setPrice(Double price) {
 		this.price = price;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 }

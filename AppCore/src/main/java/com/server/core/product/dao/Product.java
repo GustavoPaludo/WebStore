@@ -2,14 +2,16 @@ package com.server.core.product.dao;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "PRODUCT")
 @NamedQueries({
     @NamedQuery(name = Product.FIND_ALL, query = "SELECT p FROM Product p"),
     @NamedQuery(name = Product.FIND_BY_ID, query = "SELECT p FROM Product p WHERE p.id = :id")
@@ -37,7 +39,10 @@ public class Product {
 	private Double price;
 
 	@Column(name = "LAST_UPDATE", nullable = false)
-	private Date laspUpdate;
+	private Date lastUpdate;
+
+	@Column(name = "IMAGE_URL", nullable = true, length = 255)
+	private String imageUrl;
 
 	public Long getId() {
 		return id;
@@ -79,11 +84,19 @@ public class Product {
 		this.price = price;
 	}
 
-	public Date getLaspUpdate() {
-		return laspUpdate;
+	public Date getLastUpdate() {
+		return lastUpdate;
 	}
 
-	public void setLaspUpdate(Date laspUpdate) {
-		this.laspUpdate = laspUpdate;
+	public void setLastUpdate(Date lastUpdate) {
+		this.lastUpdate = lastUpdate;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 }

@@ -3,13 +3,13 @@ package com.server.core.product.dao;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 
 @Repository("productDAO")
 public class ProductDAO {
@@ -19,7 +19,7 @@ public class ProductDAO {
 
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void save(Product product) {
-		product.setLaspUpdate(new Date());
+		product.setLastUpdate(new Date());
 
 		if(product.getId() != null) {
 			this.entityManager.merge(product);
