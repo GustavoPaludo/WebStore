@@ -1,0 +1,119 @@
+<div class="container mx-auto px-4 h-full">
+    <div class="flex content-center items-center justify-center h-full">
+        <div class="w-full lg:w-6/12 px-4">
+            <div
+                class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0">
+                <div class="text-center mt-6">
+                    <h2 class="text-blueGray-700 text-lg font-bold" style="font-size: 25px;">Criar conta</h2>
+                </div>
+                <hr class="mt-6 border-b-1 border-blueGray-300" />
+                <div class="rounded-t mb-0 px-6 py-6">
+                    <div class="text-center mb-3">
+                        <h6 class="text-blueGray-500 text-sm font-bold">Cadastrar com o Google</h6>
+                    </div>
+                    <div class="btn-wrapper text-center">
+                        <button
+                            class="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
+                            type="button">
+                            <img alt="..." class="w-5 mr-1" src="assets/img/google-icon.png" />
+                            Google
+                        </button>
+                    </div>
+                    <hr class="mt-6 border-b-1 border-blueGray-300" />
+                </div>
+                <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
+                    <div class="text-blueGray-500 text-center mb-3 font-bold">
+                        <small>Ou cadastrar usando credenciais</small>
+                    </div>
+                    <form>
+                        <div class="relative w-full mb-3">
+                            <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                                Nome <span class="text-red-500">*</span>
+                            </label>
+                            <input [(ngModel)]="name" [ngModelOptions]="{ standalone: true }" name="name"
+                                type="text" (blur)="touched.name = true"
+                                class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                placeholder="Nome" />
+                            <p *ngIf="touched.name && !name" class="text-red-500 text-xs mt-1">
+                                Nome é obrigatório</p>
+                        </div>
+
+                        <div class="relative w-full mb-3">
+                            <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2">Sobrenome</label>
+                            <input [(ngModel)]="surname" [ngModelOptions]="{ standalone: true }" name="surname"
+                                type="text"
+                                class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                placeholder="Sobrenome" />
+                        </div>
+
+                        <div class="relative w-full mb-3">
+                            <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                                Email <span class="text-red-500">*</span>
+                            </label>
+                            <input [(ngModel)]="email" [ngModelOptions]="{ standalone: true }" name="email" type="email"
+                                (blur)="touched.email = true"
+                                class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                placeholder="Email" />
+                            <p *ngIf="touched.email && !isEmailValid()" class="text-red-500 text-xs mt-1">Email inválido
+                            </p>
+                        </div>
+
+                        <div class="relative w-full mb-3">
+                            <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                                CPF/CNPJ <span class="text-red-500">*</span>
+                            </label>
+                            <input [(ngModel)]="cpfCnpj" [ngModelOptions]="{ standalone: true }" name="cpfCnpj"
+                                type="text" (blur)="touched.cpfCnpj = true"
+                                class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                placeholder="CPF ou CNPJ" />
+                            <p *ngIf="touched.cpfCnpj && !isCpfCnpjValid()" class="text-red-500 text-xs mt-1">
+                                CPF deve ter 11 dígitos ou CNPJ 14 dígitos
+                            </p>
+                        </div>
+
+                        <div class="relative w-full mb-3">
+                            <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                                Senha <span class="text-red-500">*</span>
+                            </label>
+                            <input [(ngModel)]="password" [ngModelOptions]="{ standalone: true }" name="password"
+                                type="password" (blur)="touched.password = true"
+                                class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                placeholder="Senha" />
+                            <p *ngIf="touched.password && !isPasswordValid()" class="text-red-500 text-xs mt-1">
+                                A senha deve ter ao menos 8 caracteres, incluindo letras e números.
+                            </p>
+                        </div>
+
+                        <div class="relative w-full mb-3">
+                            <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                                Confirme sua senha <span class="text-red-500">*</span>
+                            </label>
+                            <input [(ngModel)]="confirmPassword" [ngModelOptions]="{ standalone: true }"
+                                name="confirmPassword" type="password" (blur)="touched.confirmPassword = true"
+                                class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                placeholder="Confirmação" />
+                            <p *ngIf="touched.confirmPassword && !isConfirmPasswordValid()"
+                                class="text-red-500 text-xs mt-1">
+                                As senhas não coincidem
+                            </p>
+                        </div>
+
+                         <div class="text-center mt-6">
+                            <button (click)="onRegister()" type="button"
+                                class="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg w-full">
+                                Criar conta
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="flex flex-wrap mt-6 relative" style="justify-content: right; margin: 30px;">
+                    <div class="w-1/2 text-right">
+                        <a [routerLink]="['/auth/login']" class="text-blueGray-700">
+                            <small>Já tenho uma conta</small>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

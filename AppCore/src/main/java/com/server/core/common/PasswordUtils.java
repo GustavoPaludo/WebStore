@@ -10,7 +10,7 @@ import io.micrometer.common.util.StringUtils;
 public class PasswordUtils {
 
 	private static final String ALGORITHM = "AES";
-	private static final String SECRET_KEY = "asd1g45g7uas90";
+	private static final String SECRET_KEY = "asd1g45g7uas90xe";
 
 	public static String encrypt(String data) throws Exception {
 		SecretKeySpec key = new SecretKeySpec(SECRET_KEY.getBytes(), ALGORITHM);

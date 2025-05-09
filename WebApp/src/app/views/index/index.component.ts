@@ -5,6 +5,7 @@ import { ProductListComponent } from "src/app/components/lists/product/product-l
 import { FeaturedProductsComponent } from "src/app/components/main/featured-products.component";
 import { HeroSectionComponent } from "src/app/components/main/hero-section.component";
 import { IndexNavbarComponent } from "src/app/components/navbars/index-navbar/index-navbar.component";
+import { ProductService } from "src/app/services/product/product.service";
 
 @Component({
     selector: "app-index",
@@ -14,13 +15,10 @@ import { IndexNavbarComponent } from "src/app/components/navbars/index-navbar/in
         FooterComponent,
         RouterModule,
         IndexNavbarComponent,
-        ProductListComponent,
         HeroSectionComponent,
-        FeaturedProductsComponent
+        FeaturedProductsComponent,
     ]
 })
 export class IndexComponent implements OnInit {
-    constructor() { }
-
     ngOnInit(): void { }
 }

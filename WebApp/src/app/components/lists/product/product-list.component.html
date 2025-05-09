@@ -21,4 +21,9 @@
             </button>
         </div>
     </div>
+    @if (displayedProducts.length === 0) {
+        <div class="w-full text-center text-gray-600 mt-4" style="margin-bottom: 30px;">
+            <p class="text-lg font-semibold" style="font-size: 30px;">Nenhum produto</p>
+        </div>
+    }
 </div>

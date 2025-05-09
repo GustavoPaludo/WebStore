@@ -7,7 +7,7 @@ import { ProductService } from 'src/app/services/product/product.service';
     selector: 'app-product-list',
     templateUrl: './product-list.component.html',
     standalone: true,
-    imports: [CommonModule, NgStyle, ProductService],
+    imports: [CommonModule],
 })
 export class ProductListComponent implements OnInit {
     @Input() limit?: number;

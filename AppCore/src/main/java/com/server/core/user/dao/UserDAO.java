@@ -1,6 +1,7 @@
 package com.server.core.user.dao;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
@@ -44,12 +45,16 @@ public class UserDAO {
 	}
 
 	public User findByEmail(String email) {
-		Query query = this.entityManager.createNamedQuery(User.FIND_BY_EMAIL);
-		query.setParameter("email", email);
-		query.setMaxResults(1);
+	    Query query = this.entityManager.createNamedQuery(User.FIND_BY_EMAIL);
+	    query.setParameter("email", email);
+	    query.setMaxResults(1);
 
-		User result = (User) query.getSingleResult();
+	    @SuppressWarnings("unchecked")
+		List<User> resultList = query.getResultList();
+	    if (resultList.isEmpty()) {
+	        return null;
+	    }
 
-		return result;
+	    return resultList.get(0);
 	}
 }
