@@ -9,7 +9,7 @@ import { createPopper } from "@popperjs/core";
     standalone: true,
     imports: [
         RouterModule,
-        NgClass
+        NgClass,
     ]
 })
 export class IndexDropdownComponent implements OnInit {

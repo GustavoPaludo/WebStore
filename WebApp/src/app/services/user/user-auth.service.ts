@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { ProblemList } from "src/app/models/problem/problem-list.model";
+import { UserAuthenticationModel } from "src/app/models/user/user-authentication.model";
 import { UserLoginModel } from "src/app/models/user/user-login.model";
 import { UserRegisterModel } from "src/app/models/user/user-register.model";
 import { environment } from "src/environments/environment";
@@ -12,15 +12,21 @@ import { environment } from "src/environments/environment";
 export class UserAuthService {
     constructor(private http: HttpClient) {}
 
-    public login(data: UserLoginModel): Observable<ProblemList> {
+    public login(data: UserLoginModel): Observable<UserAuthenticationModel> {
         let url = environment.url;
 
-        return this.http.post<ProblemList>(url + "/common/user/login", data, { headers: { 'Content-Type': 'application/json' } });
+        return this.http.post<UserAuthenticationModel>(url + "/common/user/login", data);
     }
 
-    public register(data: UserRegisterModel): Observable<ProblemList> {
+    public register(data: UserRegisterModel): Observable<UserAuthenticationModel> {
         let url = environment.url;
 
-        return this.http.post<ProblemList>(url + "/common/user/register", data, { headers: { 'Content-Type': 'application/json' } });
+        return this.http.post<UserAuthenticationModel>(url + "/common/user/register", data);
+    }
+
+    public logout(): Observable<any> {
+        let url = environment.url;
+
+        return this.http.post(url + "/authenticated/user/logout", null);
     }
 }

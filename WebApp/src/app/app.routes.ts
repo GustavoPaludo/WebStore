@@ -3,8 +3,18 @@ import { IndexComponent } from './views/index/index.component';
 import { AuthComponent } from './views/auth/auth.component';
 import { LoginComponent } from './views/auth/login/login.component';
 import { RegisterComponent } from './views/auth/register/register.component';
+import { AdminComponent } from './views/admin/admin.component';
+import { SettingsComponent } from './views/admin/settings/settings.component';
 
 export const routes: Routes = [
+    {
+        path: "admin",
+        component: AdminComponent,
+        children: [
+            { path: "settings", component: SettingsComponent },
+            { path: "", redirectTo: "settings", pathMatch: "full" },
+        ],
+    },
     {
         path: "auth",
         component: AuthComponent,

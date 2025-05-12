@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.server.core.common.ProblemList;
 import com.server.core.user.UserService;
+import com.server.core.user.model.UserAuthenticationReturn;
 import com.server.core.user.model.UserFormModel;
 import com.server.core.user.model.UserRegisterModel;
 
@@ -22,25 +23,25 @@ public class UserCWSController {
 	private UserService userService;
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ResponseEntity<ProblemList> login(HttpServletRequest request, @RequestBody UserFormModel userFormModel) {
-		ProblemList problemList = this.userService.login(userFormModel, request);
+	public ResponseEntity<UserAuthenticationReturn> login(HttpServletRequest request, @RequestBody UserFormModel userFormModel) {
+		UserAuthenticationReturn userAuthenticationReturn = this.userService.login(userFormModel, request);
 
-		if (problemList != null && problemList.hasAny()) {
-			return new ResponseEntity<ProblemList>(problemList, HttpStatus.UNAUTHORIZED);
+		if (userAuthenticationReturn.getProblemList() != null && userAuthenticationReturn.getProblemList().hasAny()) {
+			return new ResponseEntity<UserAuthenticationReturn>(userAuthenticationReturn, HttpStatus.UNAUTHORIZED);
 		}
 
-		return new ResponseEntity<ProblemList>(problemList, HttpStatus.OK);
+		return new ResponseEntity<UserAuthenticationReturn>(userAuthenticationReturn, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public ResponseEntity<ProblemList> register(HttpServletRequest request, @RequestBody UserRegisterModel userRegisterModel) {
-		ProblemList problemList = this.userService.register(userRegisterModel, request);
+	public ResponseEntity<UserAuthenticationReturn> register(HttpServletRequest request, @RequestBody UserRegisterModel userRegisterModel) {
+		UserAuthenticationReturn userAuthenticationReturn = this.userService.register(userRegisterModel, request);
 
-		if (problemList != null && problemList.hasAny()) {
-			return new ResponseEntity<ProblemList>(problemList, HttpStatus.UNAUTHORIZED);
+		if (userAuthenticationReturn.getProblemList() != null && userAuthenticationReturn.getProblemList().hasAny()) {
+			return new ResponseEntity<UserAuthenticationReturn>(userAuthenticationReturn, HttpStatus.UNAUTHORIZED);
 		}
 
-		return new ResponseEntity<ProblemList>(problemList, HttpStatus.OK);
+		return new ResponseEntity<UserAuthenticationReturn>(userAuthenticationReturn, HttpStatus.OK);
 	}
 
 	@Autowired

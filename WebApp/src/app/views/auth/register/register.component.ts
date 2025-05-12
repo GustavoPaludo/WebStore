@@ -1,10 +1,12 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Router, RouterLink } from "@angular/router";
 import { FormsModule } from '@angular/forms';
 import { UserRegisterModel } from "src/app/models/user/user-register.model";
 import { UserAuthService } from "src/app/services/user/user-auth.service";
 import { encryptPasswordAES } from "src/app/utils/password-encrypt";
 import { NgIf } from "@angular/common";
+import { environment } from "src/environments/environment";
+declare const google: any;
 
 @Component({
     selector: "app-register",
@@ -12,7 +14,7 @@ import { NgIf } from "@angular/common";
     standalone: true,
     imports: [FormsModule, RouterLink, NgIf],
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
     name = '';
     surname = '';
     cpfCnpj = '';
@@ -32,6 +34,55 @@ export class RegisterComponent {
     userRegisterModel: UserRegisterModel;
 
     constructor(private authService: UserAuthService, private router: Router) { }
+
+    ngOnInit(): void {
+        this.initializeGoogleSignUp();
+    }
+
+    initializeGoogleSignUp(): void {
+        let clientId = environment.googleClientId;
+
+        google.accounts.id.initialize({
+            client_id: clientId,
+            callback: (response: any) => this.handleGoogleCallback(response),
+        });
+
+        google.accounts.id.renderButton(
+            document.getElementById('googleBtn'),
+            { theme: 'outline', size: 'large' }
+        );
+    }
+
+    handleGoogleCallback(response: any): void {
+        const credential = response.credential;
+        const payload = JSON.parse(atob(credential.split('.')[1]));
+
+        const googleRegisterModel: UserRegisterModel = {
+            name: payload.given_name || '',
+            surname: payload.family_name || '',
+            email: payload.email,
+            fedidentification: '',
+            password: encryptPasswordAES(payload.sub)
+        };
+
+        this.authService.register(googleRegisterModel).subscribe({
+            next: (res) => {
+                if (res.problemList && res.problemList.problemList.length > 0) {
+                    const mensagens = res.problemList.problemList.map(p => `- ${p.description}`).join('\n');
+                    alert("Erro ao cadastrar com Google:\n" + mensagens);
+                } else {
+                    const token = res.jwtToken;
+                    if (token) {
+                        sessionStorage.setItem('jwtToken', token);
+                    }
+                    this.router.navigate(['/admin']);
+                }
+            },
+            error: err => {
+                alert(err.error.problemList.problemList[0].description);
+            }
+        });
+    }
 
     isEmailValid(): boolean {
         const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -94,15 +145,20 @@ export class RegisterComponent {
 
         this.authService.register(this.userRegisterModel).subscribe({
             next: (res) => {
-                if (res.problemList && res.problemList.length > 0) {
-                    const mensagens = res.problemList.map(p => `- ${p.description}`).join('\n');
+                if (res.problemList && res.problemList.problemList.length > 0) {
+                    const mensagens = res.problemList.problemList.map(p => `- ${p.description}`).join('\n');
                     alert("Erro ao registrar:\n" + mensagens);
                 } else {
-                    this.router.navigate(['/main']);
+                    const token = res.jwtToken;
+                    if (token) {
+                        sessionStorage.setItem('jwtToken', token);
+                    }
+
+                    this.router.navigate(['/admin']);
                 }
             },
             error: err => {
-                alert(err.error.problemList[0].description);
+                alert(err.error.problemList.problemList[0].description);
             }
         });
     }

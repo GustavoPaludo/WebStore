@@ -32,7 +32,7 @@ public class User {
 	@Column(name = "SURNAME", nullable = true, length = 100)
 	private String surname;
 
-	@Column(name = "FEDERAL_IDENTIFICATION", nullable = false, length = 255)
+	@Column(name = "FEDERAL_IDENTIFICATION", nullable = true, length = 255)
 	private Long federalIdentification;
 
 	@Column(name = "LAST_UPDATED", nullable = false)
