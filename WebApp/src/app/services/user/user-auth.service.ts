@@ -27,6 +27,6 @@ export class UserAuthService {
     public logout(): Observable<any> {
         let url = environment.url;
 
-        return this.http.post(url + "/authenticated/user/logout", null);
+        return this.http.post(url + "/authenticated/user/logout", null, { withCredentials: true });
     }
 }

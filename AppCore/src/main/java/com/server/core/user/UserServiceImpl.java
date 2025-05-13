@@ -14,16 +14,13 @@ import com.server.core.user.model.UserAuthenticationReturn;
 import com.server.core.user.model.UserFormModel;
 import com.server.core.user.model.UserRegisterModel;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
-
 @Service
 public class UserServiceImpl implements UserService {
 
 	private UserDAO userDAO;
 
 	@Override
-	public UserAuthenticationReturn login(UserFormModel userFormModel, HttpServletRequest httpRequest) {
+	public UserAuthenticationReturn login(UserFormModel userFormModel) {
 		ProblemList problemList = new ProblemList();
 		UserAuthenticationReturn userAuthenticationReturn = new UserAuthenticationReturn();
 
@@ -43,12 +40,7 @@ public class UserServiceImpl implements UserService {
 			return userAuthenticationReturn;
 		}
 
-		HttpSession session = httpRequest.getSession(true);
-		session.setAttribute("userName", user.getName());
-		session.setAttribute("userEmail", user.getEmail());
-		session.setMaxInactiveInterval(24 * 60 * 60);
-
-		String jwt = JwtUtil.generateToken(user.getEmail(), user.getName());
+		String jwt = JwtUtil.generateToken(user.getEmail(), user.getName(), user.getPassword(), user.getRole());
 
 		userAuthenticationReturn.setJwtToken(jwt);
 		userAuthenticationReturn.setProblemList(problemList);
@@ -57,7 +49,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserAuthenticationReturn register(UserRegisterModel userRegisterModel, HttpServletRequest httpRequest) {
+	public UserAuthenticationReturn register(UserRegisterModel userRegisterModel) {
 		UserAuthenticationReturn userAuthenticationReturn = new UserAuthenticationReturn();
 		ProblemList problemList = new ProblemList();
 
@@ -76,12 +68,7 @@ public class UserServiceImpl implements UserService {
 		}
 
 		if (!problemList.hasAny()) {
-			HttpSession session = httpRequest.getSession(true);
-			session.setAttribute("userName", user.getName());
-			session.setAttribute("userEmail", user.getEmail());
-			session.setMaxInactiveInterval(24 * 60 * 60);
-
-			String jwt = JwtUtil.generateToken(user.getEmail(), user.getName());
+			String jwt = JwtUtil.generateToken(user.getEmail(), user.getName(), user.getPassword(), user.getRole());
 
 			userAuthenticationReturn.setJwtToken(jwt);
 			userAuthenticationReturn.setProblemList(problemList);

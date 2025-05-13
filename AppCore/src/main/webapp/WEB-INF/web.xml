@@ -46,10 +46,6 @@
 			<param-value>Access-Control-Allow-Origin,
 				Access-Control-Allow-Credentials</param-value>
 		</init-param>
-		<init-param>
-			<param-name>cors.support.credentials</param-name>
-			<param-value>false</param-value>
-		</init-param>
 	</filter>
 
 	<filter-mapping>

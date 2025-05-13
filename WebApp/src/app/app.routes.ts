@@ -5,6 +5,7 @@ import { LoginComponent } from './views/auth/login/login.component';
 import { RegisterComponent } from './views/auth/register/register.component';
 import { AdminComponent } from './views/admin/admin.component';
 import { SettingsComponent } from './views/admin/settings/settings.component';
+import { ProductEditComponent } from './components/cards/product-edit/product-edit.component';
 
 export const routes: Routes = [
     {
@@ -12,6 +13,7 @@ export const routes: Routes = [
         component: AdminComponent,
         children: [
             { path: "settings", component: SettingsComponent },
+            { path: "product-edit", component: ProductEditComponent },
             { path: "", redirectTo: "settings", pathMatch: "full" },
         ],
     },

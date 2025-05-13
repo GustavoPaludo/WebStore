@@ -44,6 +44,9 @@ public class User {
 	@Column(name = "EMAIL", nullable = false, unique = true)
 	private String email;
 
+	@Column(name = "ROLE", nullable = true, length = 50)
+	private String role;
+
 	public Long getId() {
 		return id;
 	}
@@ -98,5 +101,13 @@ public class User {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 }

@@ -65,4 +65,12 @@ public class ProductDAO {
 
 		return result;
 	}
+
+	public Long countTotal() {
+		Query query = this.entityManager.createNamedQuery(Product.COUNT_TOTAL);
+
+		Long result = (Long) query.getSingleResult();
+
+		return result;
+	}
 }

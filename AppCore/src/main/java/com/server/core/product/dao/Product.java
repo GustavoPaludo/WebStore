@@ -14,12 +14,14 @@ import jakarta.persistence.Table;
 @Table(name = "PRODUCT")
 @NamedQueries({
     @NamedQuery(name = Product.FIND_ALL, query = "SELECT p FROM Product p"),
-    @NamedQuery(name = Product.FIND_BY_ID, query = "SELECT p FROM Product p WHERE p.id = :id")
+    @NamedQuery(name = Product.FIND_BY_ID, query = "SELECT p FROM Product p WHERE p.id = :id"),
+    @NamedQuery(name = Product.COUNT_TOTAL, query = "SELECT COUNT(*) FROM Product")
 })
 public class Product {
 
 	public static final String FIND_ALL = "Product.FIND_ALL";
 	public static final String FIND_BY_ID = "Product.FIND_BY_ID";
+	public static final String COUNT_TOTAL = "Product.COUNT_TOTAL";
 
 	@Id
 	@GeneratedValue

@@ -24,7 +24,7 @@ public class UserCWSController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ResponseEntity<UserAuthenticationReturn> login(HttpServletRequest request, @RequestBody UserFormModel userFormModel) {
-		UserAuthenticationReturn userAuthenticationReturn = this.userService.login(userFormModel, request);
+		UserAuthenticationReturn userAuthenticationReturn = this.userService.login(userFormModel);
 
 		if (userAuthenticationReturn.getProblemList() != null && userAuthenticationReturn.getProblemList().hasAny()) {
 			return new ResponseEntity<UserAuthenticationReturn>(userAuthenticationReturn, HttpStatus.UNAUTHORIZED);
@@ -35,7 +35,7 @@ public class UserCWSController {
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ResponseEntity<UserAuthenticationReturn> register(HttpServletRequest request, @RequestBody UserRegisterModel userRegisterModel) {
-		UserAuthenticationReturn userAuthenticationReturn = this.userService.register(userRegisterModel, request);
+		UserAuthenticationReturn userAuthenticationReturn = this.userService.register(userRegisterModel);
 
 		if (userAuthenticationReturn.getProblemList() != null && userAuthenticationReturn.getProblemList().hasAny()) {
 			return new ResponseEntity<UserAuthenticationReturn>(userAuthenticationReturn, HttpStatus.UNAUTHORIZED);

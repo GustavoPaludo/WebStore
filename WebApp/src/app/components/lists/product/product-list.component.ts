@@ -21,7 +21,7 @@ export class ProductListComponent implements OnInit {
 
     ngOnInit(): void {
         this.productService.getProductsByPaging(0, 10).subscribe((data) => {
-            this.products = data.content;
+            this.products = data.products;
         });
     }
 }
