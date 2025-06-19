@@ -39,7 +39,7 @@
 		</init-param>
 		<init-param>
 			<param-name>cors.allowed.headers</param-name>
-			<param-value>Content-Type, Authorization</param-value>
+			<param-value>Content-Type, Authorization, Cookie</param-value>
 		</init-param>
 		<init-param>
 			<param-name>cors.exposed.headers</param-name>
